@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="icon-128.png" type="image/png">
+  <title>Unix timestamp to readable date/time | Options</title>
+  <link rel="stylesheet" type="text/css" href="options.css">
+</head>
+<body>
+  <h1>Unix timestamp to readable date/time | Options</h1>
+  <fieldset>
+    <legend>Format</legend>
+    <label><input type="checkbox" id="local"> Local time</label><br>
+    <label><input type="checkbox" id="utc"> UTC</label>
+  </fieldset>
+  <fieldset>
+    <legend>Highlight</legend>
+    <label><input type="checkbox" id="highlight"> Highlight</label><br>
+    <label><input type="color" id="fg" value="#000000"> Foreground highlight color</label><br>
+    <label><input type="color" id="bg" value="#ffff00"> Background highlight color</label>
+  </fieldset>
+  <fieldset>
+    <legend>Mode</legend>
+    <label><input type="checkbox" id="title_mode"> Title mode</label><br>
+    <label><input type="checkbox" id="ms_mode"> Allow microseconds (JavaScript native)</label>
+  </fieldset>
+  <fieldset>
+   <legend>Reset:</legend>
+   <button id="reset">Reset extension</button>
+  </fieldset>
+  <script src="common.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
