@@ -9,9 +9,13 @@
 <body>
   <h1>Unix timestamp to readable date/time | Options</h1>
   <fieldset>
-    <legend>Format</legend>
+    <legend>Datetime format</legend>
     <label><input type="checkbox" id="local"> Local time</label><br>
     <label><input type="checkbox" id="utc"> UTC</label>
+  </fieldset>
+  <fieldset>
+    <legend>Timestamp format</legend>
+    <label><input type="checkbox" id="ms_mode"> Allow microseconds (JavaScript native)</label>
   </fieldset>
   <fieldset>
     <legend>Highlight</legend>
@@ -22,7 +26,7 @@
   <fieldset>
     <legend>Mode</legend>
     <label><input type="checkbox" id="title_mode"> Title mode</label><br>
-    <label><input type="checkbox" id="ms_mode"> Allow microseconds (JavaScript native)</label>
+    <label><input type="checkbox" id="individual_title_mode"> Individual titles</label><br>
   </fieldset>
   <fieldset>
    <legend>Maintenance</legend>

@@ -17,6 +17,9 @@ found in the LICENSE file.
     get_state(function (v) {
       checkbox_ids.forEach(function (eid) {
         document.getElementById(eid).checked = v[eid];
+        if (eid === 'title_mode') {  // slightly hakish
+          document.getElementById('individual_title_mode').disabled = !v[eid];
+        }
       });
       color_ids.forEach(function (eid) {
         document.getElementById(eid).value = v[eid];
@@ -30,6 +33,7 @@ found in the LICENSE file.
       var v = {};
       v[eid] = !!e.checked;
       chrome.storage.local.set(v);
+      update_all();  // slightly overkill
     };
   });
 

@@ -4,7 +4,7 @@ All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
 */
-/*jslint indent: 2, vars: true, plusplus: true */
+/*jslint indent: 2, vars: true, plusplus: true, continue: true */
 /*global chrome, JSON, get_state */
 
 (function () {
@@ -21,11 +21,15 @@ found in the LICENSE file.
 
   chrome.browserAction.onClicked.addListener(function () {
     chrome.tabs.query({active: true}, function (tabs) {
-      var tab, url, i;
+      var tab, url, url4, i;
       for (i = 0; i < tabs.length; ++i) {
         tab = tabs[i];
         url = tab.url;
-        if (url.substr(0, 4) === 'http') {  // cover both http(s)
+        if (url === undefined) {  // url can be undefined for windows with another profile
+          continue;
+        }
+        url4 = url.substr(0, 4);
+        if (url4 === 'http' || url4 === 'file') {  // cover both http(s)
           inject_into_tab(tab.id);
         } else {
           chrome.tabs.update(tab.id, {url: chrome.extension.getURL('converter-page.html')});  // use getURL for FF compat

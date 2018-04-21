@@ -5,13 +5,14 @@ Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
 */
 /*jslint indent: 2, vars: true, plusplus: true, regexp: true */
-/*global document */
+/*global document, get_state */
 
 
 'use strict';
 
 
 var inputarea = document.getElementById('inputarea');
+var cleanbutton = document.getElementById('cleanbutton');
 var outputarea = document.getElementById('outputarea');
 var timestamp_re = /[0-9]{13,16}/g;
 var timer_id;
@@ -57,17 +58,22 @@ function create_tr(ts) {
 }
 
 
-function process_inputarea() {
-  var timestamp, i, value, values = inputarea.value.split(/[^0-9]+/);
+function clean_outputarea() {
   while (outputarea.firstChild) {
     outputarea.removeChild(outputarea.firstChild);
   }
+}
+
+
+function process_inputarea(settings) {
+  var timestamp, i, value, values = inputarea.value.split(/[^0-9]+/);
+  clean_outputarea();
   for (i = 0; i < values.length; ++i) {
     value = values[i];
     timestamp = undefined;
     if (value.length === 10) {
       timestamp = parseInt(value, 10) * 1000;
-    } else if (value.length === 13) {
+    } else if (value.length === 13 && settings.ms_mode) {
       timestamp = parseInt(value, 10);
     }
     if (timestamp) {
@@ -80,5 +86,13 @@ function process_inputarea() {
 inputarea.focus();
 inputarea.addEventListener('input', function () {
   clearTimeout(timer_id);
-  timer_id = setTimeout(process_inputarea, 250);
+  timer_id = setTimeout(function () {
+    get_state(process_inputarea);
+  }, 250);
+}, false);
+
+cleanbutton.addEventListener('click', function () {
+  inputarea.value = '';
+  clean_outputarea();
+  inputarea.focus();
 }, false);

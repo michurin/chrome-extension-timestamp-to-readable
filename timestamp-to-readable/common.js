@@ -16,10 +16,11 @@ var defaults = {
   fg: '#000000',
   bg: '#ffff00',
   title_mode: true,
+  individual_title_mode: true,
   ms_mode: false,
 };
 
-var checkbox_ids = ['local', 'utc', 'highlight', 'title_mode', 'ms_mode'];
+var checkbox_ids = ['local', 'utc', 'highlight', 'title_mode', 'individual_title_mode', 'ms_mode'];
 var color_ids = ['bg', 'fg'];
 
 function get_state(callback) {

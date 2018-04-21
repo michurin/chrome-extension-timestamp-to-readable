@@ -1,11 +1,28 @@
 body {
   color: #000;
   background-color: #fff;
+  font-family: monospace;
+}
+
+div {
+  font-size: 150%;
+  margin: 0 0 5px 0;
+  text-align: right;
+}
+
+a, span {
+  text-decoration: none;
+  color: #000;
+  transition: color 0.5s ease-out;
+  cursor: pointer;
+}
+
+a:hover, span:hover {
+  color: #00f;
 }
 
 textarea {
   box-sizing: border-box;
-  height: 100%;
   width: 100%;
   resize: none;
   font-family: monospace;
@@ -14,6 +31,10 @@ textarea {
 
 table {
   border-collapse: collapse;
+}
+
+tr {
+  transition: background-color 0.5s ease-out;
 }
 
 tr:hover {
