@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016-2018 Alexey Michurin <a.michurin@gmail.com>.
+Copyright (c) 2016-2019 Alexey Michurin <a.michurin@gmail.com>.
 All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
@@ -75,6 +75,10 @@ function process_inputarea(settings) {
       timestamp = parseInt(value, 10) * 1000;
     } else if (value.length === 13 && settings.ms_mode) {
       timestamp = parseInt(value, 10);
+    } else if (value.length === 16 && settings.cs_mode) {
+      timestamp = parseInt(value / 1000, 10);
+    } else if (value.length === 19 && settings.ns_mode) {
+      timestamp = parseInt(value / 1000000, 10);
     }
     if (timestamp) {
       outputarea.appendChild(create_tr(timestamp));

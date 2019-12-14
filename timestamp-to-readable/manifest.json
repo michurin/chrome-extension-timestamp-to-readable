@@ -1,6 +1,6 @@
 {
   "name": "Unix timestamp to readable date/time",
-  "version": "0.0.1.0",
+  "version": "0.0.2.0",
   "minimum_chrome_version": "20",
 
   "description": "Convert Unix timestamps on Web-page to readable date/time",

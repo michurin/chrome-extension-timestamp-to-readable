@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016-2018 Alexey Michurin <a.michurin@gmail.com>.
+Copyright (c) 2016-2019 Alexey Michurin <a.michurin@gmail.com>.
 All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
@@ -18,9 +18,11 @@ var defaults = {
   title_mode: true,
   individual_title_mode: true,
   ms_mode: false,
+  cs_mode: false,
+  ns_mode: false,
 };
 
-var checkbox_ids = ['local', 'utc', 'highlight', 'title_mode', 'individual_title_mode', 'ms_mode'];
+var checkbox_ids = ['local', 'utc', 'highlight', 'title_mode', 'individual_title_mode', 'ms_mode', 'cs_mode', 'ns_mode'];
 var color_ids = ['bg', 'fg'];
 
 function get_state(callback) {

@@ -7,12 +7,12 @@ cd .. ||
   exit 1
 }
 base='timestamp-to-readable'
-#test -z "`git status --porcelain "$base"`" ||
-#{
-#  echo 'ERROR: not clean.'
-#  git status "$base"
-#  exit 1
-#}
+test -z "`git status --porcelain "$base"`" ||
+{
+  echo 'ERROR: not clean.'
+  git status "$base"
+  exit 1
+}
 
 manifest="$base/manifest.json"
 version=`python -c 'print(__import__("json").load(open("'$manifest'", "r"))["version"])'`

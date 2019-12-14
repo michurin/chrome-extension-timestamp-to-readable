@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016-2018 Alexey Michurin <a.michurin@gmail.com>.
+Copyright (c) 2016-2019 Alexey Michurin <a.michurin@gmail.com>.
 All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
@@ -24,8 +24,18 @@ found in the LICENSE file.
 
     var magic = 'euzxcowosanvnnxsramwsamvumvnsrozavvcsmmnnrmsxruucrzsvvzsavrcamcem';
 
+    var sub_re = '';
+    if (config.ms_mode) {
+        sub_re = '\\d{3}|' + sub_re;
+    }
+    if (config.cs_mode) {
+        sub_re = '\\d{6}|' + sub_re;
+    }
+    if (config.ns_mode) {
+        sub_re = '\\d{9}|' + sub_re;
+    }
     var re = new RegExp(
-      config.ms_mode ? '(?<!\\d)1\\d{9}(?:\\d{3})?(?!\\d)' : '(?<!\\d)1\\d{9}(?!\\d)',
+      sub_re ? '(?<!\\d)1\\d{9}(?:' + sub_re + ')(?!\\d)' : '(?<!\\d)1\\d{9}(?!\\d)',
       'g'
     );
 
@@ -61,11 +71,17 @@ found in the LICENSE file.
     function timestamp_to_readable(timestamp_text, long_mode) {
       var js_timestamp;
       var repr;
-      if (timestamp_text.length < 13) {
+      if (timestamp_text.length === 10) {
         js_timestamp = timestamp_text * 1000;
         repr = timestamp_text;
-      } else {
+      } else if (timestamp_text.length === 13) {
         js_timestamp = parseInt(timestamp_text, 10);
+        repr = timestamp_text.slice(0, 10) + '.' + timestamp_text.slice(10);
+      } else if (timestamp_text.length === 16) {
+        js_timestamp = parseInt(timestamp_text / 1000, 10);
+        repr = timestamp_text.slice(0, 10) + '.' + timestamp_text.slice(10);
+      } else { // 19
+        js_timestamp = parseInt(timestamp_text / 1000000, 10);
         repr = timestamp_text.slice(0, 10) + '.' + timestamp_text.slice(10);
       }
       var dt = new Date(js_timestamp);
