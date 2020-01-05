@@ -1,43 +1,37 @@
 /*
-Copyright (c) 2016-2019 Alexey Michurin <a.michurin@gmail.com>.
+Copyright (c) 2016-2020 Alexey Michurin <a.michurin@gmail.com>.
 All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
 */
-/*jslint indent: 2, vars: true, plusplus: true, regexp: true */
-/*global document, get_state */
 
 
-'use strict';
-
-
-var inputarea = document.getElementById('inputarea');
-var cleanbutton = document.getElementById('cleanbutton');
-var outputarea = document.getElementById('outputarea');
-var timestamp_re = /[0-9]{13,16}/g;
-var timer_id;
+const inputarea = document.getElementById('inputarea');
+const cleanbutton = document.getElementById('cleanbutton');
+const outputarea = document.getElementById('outputarea');
+let timerID;
 
 
 function zpad(v) {
-  return ('0' + v).slice(-2);
+  return (`0${v}`).slice(-2);
 }
 
 
 function fmt(dt, sfx) {
-  var p = 'get' + sfx;
+  const p = `get${sfx}`;
   return (
-    dt[p + 'FullYear']() + '-' +
-    zpad(dt[p + 'Month']() + 1) + '-' +
-    zpad(dt[p + 'Date']()) + ' ' +
-    zpad(dt[p + 'Hours']()) + ':' +
-    zpad(dt[p + 'Minutes']()) + ':' +
-    zpad(dt[p + 'Seconds']())
+    `${dt[`${p}FullYear`]()}-${
+      zpad(dt[`${p}Month`]() + 1)}-${
+      zpad(dt[`${p}Date`]())} ${
+      zpad(dt[`${p}Hours`]())}:${
+      zpad(dt[`${p}Minutes`]())}:${
+      zpad(dt[`${p}Seconds`]())}`
   );
 }
 
 
-function create_td(text) {
-  var td = document.createElement('td');
+function createTD(text) {
+  const td = document.createElement('td');
   if (text) {
     td.innerText = text;
   } else {
@@ -47,27 +41,30 @@ function create_td(text) {
 }
 
 
-function create_tr(ts) {
-  var tr = document.createElement('tr');
-  tr.appendChild(create_td(Math.floor(ts / 1000)));
-  tr.appendChild(create_td());
-  tr.appendChild(create_td(fmt(new Date(ts), 'UTC') + ' UTC'));
-  tr.appendChild(create_td());
-  tr.appendChild(create_td(fmt(new Date(ts), '')));
+function createTR(ts) {
+  const tr = document.createElement('tr');
+  tr.appendChild(createTD(Math.floor(ts / 1000)));
+  tr.appendChild(createTD());
+  tr.appendChild(createTD(`${fmt(new Date(ts), 'UTC')} UTC`));
+  tr.appendChild(createTD());
+  tr.appendChild(createTD(fmt(new Date(ts), '')));
   return tr;
 }
 
 
-function clean_outputarea() {
+function cleanOutputArea() {
   while (outputarea.firstChild) {
     outputarea.removeChild(outputarea.firstChild);
   }
 }
 
 
-function process_inputarea(settings) {
-  var timestamp, i, value, values = inputarea.value.split(/[^0-9]+/);
-  clean_outputarea();
+function processInputArea(settings) {
+  let timestamp;
+  let i;
+  let value;
+  const values = inputarea.value.split(/[^0-9]+/);
+  cleanOutputArea();
   for (i = 0; i < values.length; ++i) {
     value = values[i];
     timestamp = undefined;
@@ -81,22 +78,22 @@ function process_inputarea(settings) {
       timestamp = parseInt(value / 1000000, 10);
     }
     if (timestamp) {
-      outputarea.appendChild(create_tr(timestamp));
+      outputarea.appendChild(createTR(timestamp));
     }
   }
 }
 
 
 inputarea.focus();
-inputarea.addEventListener('input', function () {
-  clearTimeout(timer_id);
-  timer_id = setTimeout(function () {
-    get_state(process_inputarea);
+inputarea.addEventListener('input', () => {
+  clearTimeout(timerID);
+  timerID = setTimeout(() => {
+    getState(processInputArea);
   }, 250);
 }, false);
 
-cleanbutton.addEventListener('click', function () {
+cleanbutton.addEventListener('click', () => {
   inputarea.value = '';
-  clean_outputarea();
+  cleanOutputArea();
   inputarea.focus();
 }, false);

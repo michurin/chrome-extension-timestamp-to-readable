@@ -1,55 +1,49 @@
 /*
-Copyright (c) 2016-2019 Alexey Michurin <a.michurin@gmail.com>.
+Copyright (c) 2016-2020 Alexey Michurin <a.michurin@gmail.com>.
 All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
 */
-/*jslint indent: 2, vars: true, plusplus: true */
-/*global chrome, window, get_state, checkbox_ids, color_ids */
 
 (function () {
+  const { document } = window;
 
-  'use strict';
-
-  var document = window.document;
-
-  function update_all() {
-    get_state(function (v) {
-      checkbox_ids.forEach(function (eid) {
+  function updateAll() {
+    getState((v) => {
+      checkboxIDs.forEach((eid) => {
         document.getElementById(eid).checked = v[eid];
-        if (eid === 'title_mode') {  // slightly hakish
+        if (eid === 'title_mode') { // slightly hakish
           document.getElementById('individual_title_mode').disabled = !v[eid];
         }
       });
-      color_ids.forEach(function (eid) {
+      colorIDs.forEach((eid) => {
         document.getElementById(eid).value = v[eid];
       });
     });
   }
 
-  checkbox_ids.forEach(function (eid) {
-    var e = document.getElementById(eid);
+  checkboxIDs.forEach((eid) => {
+    const e = document.getElementById(eid);
     e.onchange = function () {
-      var v = {};
+      const v = {};
       v[eid] = !!e.checked;
       chrome.storage.local.set(v);
-      update_all();  // slightly overkill
+      updateAll(); // slightly overkill
     };
   });
 
-  color_ids.forEach(function (eid) {
-    var e = document.getElementById(eid);
+  colorIDs.forEach((eid) => {
+    const e = document.getElementById(eid);
     e.onchange = function () {
-      var v = {};
+      const v = {};
       v[eid] = e.value;
       chrome.storage.local.set(v);
     };
   });
 
   document.getElementById('reset').onclick = function () {
-    chrome.storage.local.clear(update_all);
+    chrome.storage.local.clear(updateAll);
   };
 
-  update_all();
-
+  updateAll();
 }());

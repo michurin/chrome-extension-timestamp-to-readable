@@ -1,15 +1,12 @@
 /*
-Copyright (c) 2016-2019 Alexey Michurin <a.michurin@gmail.com>.
+Copyright (c) 2016-2020 Alexey Michurin <a.michurin@gmail.com>.
 All rights reserved.
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file.
 */
-/*jslint indent: 2, vars: true, plusplus: true, node: true */
-/*global chrome */
 
-'use strict';
 
-var defaults = {
+const defaults = {
   local: true,
   utc: true,
   highlight: true,
@@ -22,9 +19,9 @@ var defaults = {
   ns_mode: false,
 };
 
-var checkbox_ids = ['local', 'utc', 'highlight', 'title_mode', 'individual_title_mode', 'ms_mode', 'cs_mode', 'ns_mode'];
-var color_ids = ['bg', 'fg'];
+const checkboxIDs = ['local', 'utc', 'highlight', 'title_mode', 'individual_title_mode', 'ms_mode', 'cs_mode', 'ns_mode'];
+const colorIDs = ['bg', 'fg'];
 
-function get_state(callback) {
+function getState(callback) {
   chrome.storage.local.get(defaults, callback);
 }
