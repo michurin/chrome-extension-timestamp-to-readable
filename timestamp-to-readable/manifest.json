@@ -1,7 +1,7 @@
 {
   "name": "Unix timestamp to readable date/time",
-  "version": "0.0.2.1",
-  "minimum_chrome_version": "20",
+  "version": "0.0.2.2",
+  "minimum_chrome_version": "49",
 
   "description": "Convert Unix timestamps on Web-page to readable date/time",
   "short_name": "timestamp→datetime",
@@ -27,7 +27,7 @@
     "default_title": "timestamp ⇒ datetime"
   },
 
-  "homepage_url": "https://michurin.github.io/",
+  "homepage_url": "https://github.com/michurin/chrome-extension-timestamp-to-readable",
   "author": "Alexey Michurin <a.michurin@gmail.com>",
 
   "manifest_version": 2
