@@ -20,12 +20,7 @@ function zpad(v) {
 function fmt(dt, sfx) {
   const p = `get${sfx}`;
   return (
-    `${dt[`${p}FullYear`]()}-${
-      zpad(dt[`${p}Month`]() + 1)}-${
-      zpad(dt[`${p}Date`]())} ${
-      zpad(dt[`${p}Hours`]())}:${
-      zpad(dt[`${p}Minutes`]())}:${
-      zpad(dt[`${p}Seconds`]())}`
+    `${dt[`${p}FullYear`]()}-${zpad(dt[`${p}Month`]() + 1)}-${zpad(dt[`${p}Date`]())} ${zpad(dt[`${p}Hours`]())}:${zpad(dt[`${p}Minutes`]())}:${zpad(dt[`${p}Seconds`]())}`
   );
 }
 
@@ -87,8 +82,8 @@ function processInputArea(settings) {
 inputarea.focus();
 inputarea.addEventListener('input', () => {
   clearTimeout(timerID);
-  timerID = setTimeout(() => {
-    getState(processInputArea);
+  timerID = setTimeout(async () => {
+    processInputArea(await getState());
   }, 250);
 }, false);
 

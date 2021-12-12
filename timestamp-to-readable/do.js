@@ -1,4 +1,4 @@
-(function () {
+(function() {
   chrome.runtime.onMessage.addListener(
     function(config, sender, sendResponse) {
       if (sender.tab) { // from a content script, not from the extension
@@ -36,12 +36,7 @@
         function fmt(dt, sfx) {
           const p = `get${sfx}`;
           return (
-            `${dt[`${p}FullYear`]()}-${
-              zpad(dt[`${p}Month`]() + 1)}-${
-              zpad(dt[`${p}Date`]())} ${
-              zpad(dt[`${p}Hours`]())}:${
-              zpad(dt[`${p}Minutes`]())}:${
-              zpad(dt[`${p}Seconds`]())}`
+            `${dt[`${p}FullYear`]()}-${zpad(dt[`${p}Month`]() + 1)}-${zpad(dt[`${p}Date`]())} ${zpad(dt[`${p}Hours`]())}:${zpad(dt[`${p}Minutes`]())}:${zpad(dt[`${p}Seconds`]())}`
           );
         }
 
